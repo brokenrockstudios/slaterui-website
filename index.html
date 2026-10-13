@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SlaterUI – Text-first UI for Unreal Engine</title>
+<meta name="description" content="SlaterUI is a text-first, declarative UI layer for Unreal Engine. Write HTML-like .sltr files, get native Slate widgets, and see changes live on save.">
+<meta property="og:title" content="SlaterUI">
+<meta property="og:description" content="Text-first, hot-reloaded UI for Unreal Engine. Native Slate from a small HTML-like file.">
+<meta property="og:image" content="https://slaterui.com/images/Panel_Dusk.png">
+<meta property="og:url" content="https://slaterui.com/">
+<style>
+  :root {
+    --bg: #14161c;
+    --panel: #1c1f27;
+    --border: #2b2f3a;
+    --text: #e6e8ee;
+    --muted: #9aa1b2;
+    --accent: #ff9a3c;
+    --tag: #7cc4ff;
+    --attr: #ffc66d;
+    --str: #a5d68a;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f6f7fa; --panel: #ffffff; --border: #dde0e8;
+      --text: #1a1d24; --muted: #5b6272; --accent: #d9650a;
+      --tag: #1769b5; --attr: #9a5b00; --str: #2f7a1d;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+  header { padding: 72px 0 32px; text-align: center; }
+  h1 { font-size: clamp(2.4rem, 7vw, 3.6rem); margin: 0 0 8px; letter-spacing: -0.02em; }
+  h1 span { color: var(--accent); }
+  .def { color: var(--muted); font-size: .95rem; margin: 0 auto 28px; max-width: 560px; }
+  .tagline { font-size: 1.2rem; max-width: 640px; margin: 0 auto 28px; }
+  .btn {
+    display: inline-block; padding: 12px 24px; border-radius: 8px; font-weight: 600;
+    background: var(--accent); color: #111; text-decoration: none;
+  }
+  .btn:hover { filter: brightness(1.1); }
+  .status { margin-top: 16px; color: var(--muted); font-size: .9rem; }
+  section { padding: 24px 0; }
+  h2 { font-size: 1.3rem; margin: 0 0 12px; }
+  pre {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 18px; overflow-x: auto; margin: 0; font: 13.5px/1.55 ui-monospace, "Cascadia Code", Consolas, monospace;
+  }
+  .file { color: var(--muted); font-size: .85rem; margin: 0 0 6px; font-family: ui-monospace, Consolas, monospace; }
+  .t { color: var(--tag); } .a { color: var(--attr); } .s { color: var(--str); }
+  .shots { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 16px; }
+  figure { margin: 0; text-align: center; }
+  figure img { display: block; max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--border); }
+  figcaption { color: var(--muted); font-size: .85rem; margin-top: 6px; }
+  .note { color: var(--muted); }
+  ul { padding-left: 20px; }
+  li { margin: 6px 0; }
+  footer { border-top: 1px solid var(--border); margin-top: 40px; padding: 24px 0 48px; color: var(--muted); font-size: .9rem; text-align: center; }
+  a { color: var(--accent); }
+  code { font-family: ui-monospace, Consolas, monospace; font-size: .9em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>Slater<span>UI</span></h1>
+  <p class="def"><b>slater</b> /ˈsleɪ.tər/ <i>noun</i>. In Unreal Engine, something that lays out Slate for you, from a text file, while the game is running.</p>
+  <p class="tagline">A text-first, declarative UI layer for Unreal Engine. Describe a screen in a small HTML-like file, get real native Slate widgets, and watch it update the instant you save. No recompile, no Blueprint graph, no opaque <code>.uasset</code>.</p>
+  <a class="btn" href="https://github.com/brokenrockstudios/SlaterUI/">View on GitHub</a>
+  <div class="status">Experimental. The syntax and API are still moving. MIT licensed.</div>
+</header>
+
+<section>
+  <h2>A taste</h2>
+  <p class="file">Panel.sltr</p>
+<pre><code><span class="t">&lt;surface</span> <span class="a">role</span>=<span class="s">"UI.Surface.Panel"</span> <span class="a">inset</span>=<span class="s">"UI.Space.L"</span> <span class="a">width</span>=<span class="s">"360"</span><span class="t">&gt;</span>
+  <span class="t">&lt;vbox&gt;</span>
+    <span class="t">&lt;text</span> <span class="a">font</span>=<span class="s">"UI.Font.Heading"</span> <span class="a">margin</span>=<span class="s">"UI.Space.S"</span><span class="t">&gt;</span>Inventory<span class="t">&lt;/text&gt;</span>
+    <span class="t">&lt;text</span> <span class="a">wrap</span>=<span class="s">"true"</span> <span class="a">margin</span>=<span class="s">"UI.Space.S"</span><span class="t">&gt;</span>Drag an item onto a slot to equip it. Right-click an item to split the stack.<span class="t">&lt;/text&gt;</span>
+    <span class="t">&lt;text</span> <span class="a">font</span>=<span class="s">"UI.Font.Caption"</span> <span class="a">color</span>=<span class="s">"UI.Color.TextMuted"</span> <span class="a">margin</span>=<span class="s">"UI.Space.S"</span><span class="t">&gt;</span>12 of 40 slots used<span class="t">&lt;/text&gt;</span>
+    <span class="t">&lt;hbox</span> <span class="a">margin</span>=<span class="s">"UI.Space.M"</span> <span class="a">halign</span>=<span class="s">"right"</span><span class="t">&gt;</span>
+      <span class="t">&lt;surface</span> <span class="a">role</span>=<span class="s">"UI.Surface.Button"</span> <span class="a">inset</span>=<span class="s">"UI.Space.M"</span> <span class="a">margin</span>=<span class="s">"UI.Space.S"</span><span class="t">&gt;</span>
+        <span class="t">&lt;text</span> <span class="a">color</span>=<span class="s">"#FFFFFF"</span><span class="t">&gt;</span>Sort<span class="t">&lt;/text&gt;</span>
+      <span class="t">&lt;/surface&gt;</span>
+      <span class="t">&lt;surface</span> <span class="a">role</span>=<span class="s">"UI.Surface.Panel"</span> <span class="a">inset</span>=<span class="s">"UI.Space.M"</span> <span class="a">margin</span>=<span class="s">"UI.Space.S"</span><span class="t">&gt;</span>
+        <span class="t">&lt;text&gt;</span>Close<span class="t">&lt;/text&gt;</span>
+      <span class="t">&lt;/surface&gt;</span>
+    <span class="t">&lt;/hbox&gt;</span>
+  <span class="t">&lt;/vbox&gt;</span>
+<span class="t">&lt;/surface&gt;</span></code></pre>
+  <p class="note">Colors, fonts, spacing and surfaces are tokens from a separate style file. Swap the style and the same layout is re-themed, with no change to the layout.</p>
+  <div class="shots">
+    <figure><img src="images/Panel_Base.png" width="360" height="212" alt="The Panel layout rendered in the Base style"><figcaption>Base style</figcaption></figure>
+    <figure><img src="images/Panel_Dusk.png" width="360" height="212" alt="The same Panel layout rendered in the Dusk style"><figcaption>Dusk style</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <h2>Why SlaterUI?</h2>
+  <ul>
+    <li><b>Fast iteration.</b> Layouts and styles reload live. A broken edit keeps the last good UI on screen and shows the error with file, line and column.</li>
+    <li><b>Text you can diff and merge.</b> A UI change is a few lines in a pull request, not a binary blob.</li>
+    <li><b>Easy for humans and agents.</b> A small, strict syntax with helpful error messages.</li>
+    <li><b>Native Slate underneath.</b> No separate renderer, small overhead, and an exit ramp to plain Slate if you need one.</li>
+  </ul>
+</section>
+
+<footer>
+  <a href="https://github.com/brokenrockstudios/SlaterUI/">github.com/brokenrockstudios/SlaterUI</a><br>
+  MIT &copy; 2026 Broken Rock Studios
+</footer>
+
+</div>
+</body>
+</html>
